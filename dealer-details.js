@@ -26,7 +26,7 @@ const scrapStoreDetails = (dealer, storeHtml) => {
                 store.fax = value;
                 break;
             case 'Email':
-                store.fax = value;
+                store.email = value;
                 break;
             case 'Κινητό':
                 store.mobile = value;
