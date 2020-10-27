@@ -42,8 +42,6 @@ const scrapStoreDetails = (dealer, storeHtml) => {
             // @TODO check why follow us case is not working
             case 'Follow us':
                 break;
-            default:
-                console.log('Key', key);
         }
       })
       dealer.stores.push(store);
