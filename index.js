@@ -5,7 +5,6 @@ const dealers = require('./dealers.js');
 const dealerDetails = require('./dealer-details.js');
 
 const puppeteer = require('puppeteer');
-const $ = require('cheerio');
 
 const scrapAndSaveData = () =>{
   dealers.populateDB(db)
@@ -47,29 +46,17 @@ const loadDB = () => {
 (async () => {
   await loadDB();
   console.log('Database ready to use!');
-
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-
-  let i = 0;
+  let index = 0;
+  const dealerCount = db.dealers.length;
   for(const dealer of db.dealers){
-    // if(dealer.telephone !== '2106015005'){
-    //   continue;
-    // }
-    // console.log(dealer);
-    // console.log(`${dealer.link}contact`)
+    console.log('Progress: ' + (index++ / dealerCount) * 100 + '%');
     await page.goto(`${dealer.link}contact`,{ waitUntil: 'networkidle0'});
     const html = await page.content();
     dealerDetails.scrapDetails(dealer, html);
-
-    // if(i++ > 5)
-    // break;
   }
   await saveDB();
-
-
   await browser.close();
-
-
 })();

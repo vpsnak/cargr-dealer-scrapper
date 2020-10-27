@@ -39,6 +39,7 @@ const scrapStoreDetails = (dealer, storeHtml) => {
             case 'Τηλέφωνο':
             case 'Ωράριο λειτουργίας':
             case 'Βαθμολογία':
+            // @TODO check why follow us case is not working
             case 'Follow us':
                 break;
             default:
