@@ -4,8 +4,6 @@ const db = require('./storage.js');
 const dealers = require('./dealers.js');
 const dealerDetails = require('./dealer-details.js');
 
-const puppeteer = require('puppeteer');
-
 const scrapAndSaveData = () =>{
   dealers.populateDB(db)
     .then(() =>{
@@ -46,17 +44,8 @@ const loadDB = () => {
 (async () => {
   await loadDB();
   console.log('Database ready to use!');
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+  
+  dealerDetails.scrapDealerDetails(db);
 
-  let index = 0;
-  const dealerCount = db.dealers.length;
-  for(const dealer of db.dealers){
-    console.log('Progress: ' + (index++ / dealerCount) * 100 + '%');
-    await page.goto(`${dealer.link}contact`,{ waitUntil: 'networkidle0'});
-    const html = await page.content();
-    dealerDetails.scrapDetails(dealer, html);
-  }
   await saveDB();
-  await browser.close();
 })();
