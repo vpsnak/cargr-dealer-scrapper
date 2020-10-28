@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const $ = require('cheerio');
 const config = require('./config.js');
+const { saveDB } = require('./storage.js');
 
 const scrapDealers = (db, html) => {
   $('.cat-lis tr', html).each(function() {
@@ -32,16 +33,14 @@ const populateDB = async (db) => {
     await page.goto(config.dealers.regions.requestUrl())
     const html = await page.content();
     scrapRegions(db, vType, html);
-    // @TODO remove
-    break;
+    saveDB();
   }
   for (const region of db.regions) {
     config.dealers.list.vtype = region.vtype;
     await page.goto(config.dealers.list.requestUrl(region.link))
     const html = await page.content();
     scrapDealers(db, html);
-    // @TODO remove
-    break;
+    await saveDB();
   }
   await browser.close();
 }
