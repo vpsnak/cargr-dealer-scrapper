@@ -47,21 +47,27 @@ const scrapStoreDetails = (dealer, storeHtml) => {
 const populateDB = async (db) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    let index = 0;
-    const startTime = performance.now();
-    const dealerCount = db.dealers.length;
+    let index = 0, dealerAvgParseTime = 0, dealerParseTime = 0;
+
+    const getTimestamp = () => performance.now() / 1000;
+
+    const startTime = getTimestamp(),
+        dealerTotal = db.dealers.length;
     for(const dealer of db.dealers){
-      const timeRunning = (performance.now() - startTime) / 1000;
-      const currentPercentage = (++index / dealerCount) * 100;
+      const currentStartTime = getTimestamp(); 
       console.clear();
-      console.log('------ Dealer Details ------');
-      console.log('Running ' + timeRunning.toFixed(2) + ' sec');
-      console.log('Dealer ' + index + ' of ' + dealerCount);
-      console.log('Progress: ' + currentPercentage.toFixed(2) + '%');
-      await page.goto(`${dealer.link}contact`,{ waitUntil: 'networkidle0'});
+      console.log(`------ Dealer Details ------`);
+      console.log(`Dealer ${index} of ${dealerTotal}`);
+      console.log(`Average Parse Time: ${dealerAvgParseTime.toFixed(2)} sec`);
+      console.log(`Elapsed Time: ${((currentStartTime - startTime) / 60).toFixed(0)} mins`);
+      console.log(`Estimated Time: ${((dealerAvgParseTime * (dealerTotal - index)) / 60).toFixed(0)} mins`);
+      console.log(`Progress: ${((++index / dealerTotal) * 100).toFixed(2)} %`);
+      await page.goto(`${dealer.link}contact`);
       const html = await page.content();
       scrapDetails(dealer, html);
       await saveDB();
+      dealerParseTime += getTimestamp() - currentStartTime;
+      dealerAvgParseTime = dealerParseTime / index;
     }
     await browser.close();
 }

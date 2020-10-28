@@ -20,7 +20,7 @@ const scrapAndSaveData = () =>{
   await loadDB();
   console.log('Database ready to use!');
 
-  await dealers.populateDB(db);
+  // await dealers.populateDB(db);
   
   await dealerDetails.populateDB(db);
 })();
