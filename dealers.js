@@ -2,11 +2,13 @@ const puppeteer = require('puppeteer');
 const $ = require('cheerio');
 const config = require('./config.js');
 const { saveDB } = require('./storage.js');
+const { dealers } = require('./config.js');
 
 const scrapDealers = (db, html) => {
   $('.cat-lis tr', html).each(function() {
       const row = $(this);
       let dealer = {};
+      dealer.vtype = config.dealers.list.vtype;
       dealer.name = row.find('[itemprop="legalName"]').text().trim();
       dealer.link = row.find('[itemprop="legalName"]').attr('href');
       dealer.location = row.find('[itemprop="location"] span').text().trim();
