@@ -22,8 +22,8 @@ const config = {
                                 '&q=&region='
         },
         vehicleTypesToExport: [
-            'car',
-            'bike'
+            'car', // 2233
+            'bike' // 475
         ],
         listPageLink: '?q=&ctype=vehicles&vtype=bike&ptype=&region='
     }

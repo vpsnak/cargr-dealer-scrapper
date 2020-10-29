@@ -21,7 +21,8 @@ const loadDB = () => {
   return new Promise((resolve, reject) => {
     fs.readFile(config.db.file, (err, data) => {
         if (err) {
-          return reject(err);
+          saveDB();
+          return resolve();
         }
         Object.assign(db, JSON.parse(data));
         resolve();
