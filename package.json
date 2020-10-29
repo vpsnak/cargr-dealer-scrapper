@@ -1,18 +1,25 @@
 {
   "name": "cargr-scrapper",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a node script to scrap car.gr dealers by region and export them in excel format.",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vpsnak/cargr-dealer-scrapper.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Evangelos Pallis",
+    "email": "info.vpsnak@gmail.com",
+    "url": "https://epallis.com"
+  },
+  "license": "MIT",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "puppeteer": "^5.4.0",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.6"
+    "exceljs": "^4.2.0",
+    "puppeteer": "^5.4.0"
   }
 }
