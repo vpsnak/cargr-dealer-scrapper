@@ -1,7 +1,10 @@
 const config = {
     baseUrl: 'https://www.car.gr',
     db:{
-        file: 'db.json'
+        file: 'db-final.json'
+    },
+    export:{
+        file: 'export-final.xlsx'
     },
     dealers: {
         list:{
@@ -23,7 +26,16 @@ const config = {
         },
         vehicleTypesToExport: [
             'car', // 2233
-            'bike' // 475
+            'bike', // 475
+            'van',
+            'truck',
+            'bus',
+            'builder',
+            'semitruck',
+            'semitrailer',
+            'tractor',
+            'forklift',
+            'taxi'
         ],
         listPageLink: '?q=&ctype=vehicles&vtype=bike&ptype=&region='
     }
