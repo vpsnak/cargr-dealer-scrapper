@@ -10,9 +10,7 @@ const scrapDetails = (dealer, html) => {
     dealer.stores = [];
     stores.each(function() {
         const that = $(this);
-        const title = that.prev('.outlet-header-container')
-        .find('.outlet-dealer-title').text().trim();
-        console.log(title);
+        const title = that.prev('.outlet-header-container').find('.outlet-dealer-title').text().trim();
         scrapStoreDetails(dealer, title, that.html())
     })
 }
